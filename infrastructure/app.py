@@ -4,6 +4,13 @@ from stacks.backend_stack import BackendStack
 
 app = cdk.App()
 
-BackendStack(app, "BackendStack")
+BackendStack(
+    app,
+    "EventsAPIStack",
+    env=cdk.Environment(
+        account=app.node.try_get_context("account"),
+        region=app.node.try_get_context("region") or "us-east-1",
+    ),
+)
 
 app.synth()
